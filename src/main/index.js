@@ -1,5 +1,5 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
-import { join } from 'path'
+import { join, /* path */ } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
@@ -10,6 +10,7 @@ function createWindow() {
     height: 670,
     show: false,
     autoHideMenuBar: true,
+    // icon: path.join(__dirname, "../renderer/src/assets/perfume.png"),
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
