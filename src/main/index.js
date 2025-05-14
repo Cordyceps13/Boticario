@@ -6,21 +6,26 @@ import icon from '../../resources/icon.png?asset'
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 1300,
+    height: 930,
+    minWidth: 1300,
+    minHeight: 930,
+    center: true,
     show: false,
     autoHideMenuBar: true,
-    // icon: path.join(__dirname, "../renderer/src/assets/perfume.png"),
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
     }
   })
 
-  mainWindow.on('ready-to-show', () => {
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.center();
     mainWindow.show()
-  })
+  });
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
