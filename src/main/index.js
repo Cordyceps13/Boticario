@@ -2,6 +2,18 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join, /* path */ } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { createDatabase, getData } from '../database/database.js';
+
+
+ipcMain.handle('get-data', async () => {
+  try {
+    const rows = await getData();
+    return rows;
+  } catch (err) {
+    console.error('Error fetching data:', err);
+    return [];
+  }
+});
 
 function createWindow() {
   // Create the browser window.
@@ -15,14 +27,15 @@ function createWindow() {
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: false,
+      contextIsolation: true,
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
     }
   })
 
   mainWindow.once('ready-to-show', () => {
+    // Create the database
     mainWindow.center();
     mainWindow.show()
   });
@@ -58,6 +71,7 @@ app.whenReady().then(() => {
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
 
+  createDatabase();
   createWindow()
 
   app.on('activate', function () {
@@ -66,6 +80,7 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 })
+
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

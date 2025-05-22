@@ -2,6 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "Boticario_9c25d694"
+    },
+    {
       "name": "Debug Main Process",
       "type": "node",
       "request": "launch",
@@ -10,7 +17,9 @@
       "windows": {
         "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron-vite.cmd"
       },
-      "runtimeArgs": ["--sourcemap"],
+      "runtimeArgs": [
+        "--sourcemap"
+      ],
       "env": {
         "REMOTE_DEBUGGING_PORT": "9222"
       }

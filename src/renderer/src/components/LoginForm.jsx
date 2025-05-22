@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import './LoginForm.css'
+import perfumeLogo from '../assets/perfume_test.png';
 
 function LoginForm() {
     const [username, setUsername] = useState('');
@@ -99,7 +100,7 @@ function LoginForm() {
             <div className="login-container">
                 <div className="img-container">
                     <i className="fi fi-rr-perfume"></i>
-                    <img className="login-logo" src="src/assets/perfume_test.png" alt="App Logo" />
+                    <img className="login-logo" src={perfumeLogo} alt="App Logo" />
                     <Link onClick={test}>Boticário</Link>
                 </div>
                 <form id="login-form" className="login-form" onSubmit={handleSubmit}>
