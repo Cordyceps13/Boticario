@@ -1,19 +1,19 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, /*ipcMain*/ } from 'electron'
 import { join, /* path */ } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/icon.png?asset'
-import { createDatabase, getData } from '../database/database.js';
+// import icon from '../../resources/icon.png?asset'
+// import { createDatabase, getData } from '../database/database.js';
 
 
-ipcMain.handle('get-data', async () => {
-  try {
-    const rows = await getData();
-    return rows;
-  } catch (err) {
-    console.error('Error fetching data:', err);
-    return [];
-  }
-});
+// ipcMain.handle('get-data', async () => {
+//   try {
+//     const rows = await getData();
+//     return rows;
+//   } catch (err) {
+//     console.error('Error fetching data:', err);
+//     return [];
+//   }
+// });
 
 function createWindow() {
   // Create the browser window.
@@ -25,7 +25,7 @@ function createWindow() {
     center: true,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    // ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -69,9 +69,9 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  // ipcMain.on('ping', () => console.log('pong'))
 
-  createDatabase();
+  // createDatabase();
   createWindow()
 
   app.on('activate', function () {

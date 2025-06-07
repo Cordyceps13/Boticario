@@ -17,8 +17,8 @@ export function createDatabase() {
 
 }
 
-export function getData() {
-    return new Promise((resolve, reject) => {
+export async function getData() {
+    return await new Promise((resolve, reject) => {
         const db = new sqlite3.Database(db);
         db.all("SELECT rowid AS id, info FROM lorem", (err, rows) => {
             if (err) {
